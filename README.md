@@ -1,7 +1,7 @@
 # PhotonWorks
 
-<img width="3840" height="2100" alt="Screenshot2" src="https://github.com/user-attachments/assets/c8f58d99-7219-4f38-b367-8c375308be17" />
 <img width="3840" height="2100" alt="Screenshot1" src="https://github.com/user-attachments/assets/11dc1d9b-ff01-44af-b417-a1cf2ac56f09" />
+<img width="3840" height="2100" alt="Screenshot2" src="https://github.com/user-attachments/assets/c8f58d99-7219-4f38-b367-8c375308be17" />
 
 A Windows astrophotography application: stack your subs and process the result, in one program.
 
