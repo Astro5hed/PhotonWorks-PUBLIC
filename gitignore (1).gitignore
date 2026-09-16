@@ -1,0 +1,22 @@
+# Build output
+build/
+dist/
+_build_cache/
+*.spec
+__pycache__/
+*.pyc
+
+# Generated at build time
+_splash.png
+_splash.json
+
+# Local settings and scratch
+last_session.json
+*.log
+PhotonWorks_Temp/
+PhotonWorks_Siril/
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store

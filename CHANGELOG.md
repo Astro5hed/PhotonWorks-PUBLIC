@@ -1,123 +1,267 @@
 # Changelog
 
-All notable changes to **AstroSuite Pro**.
+Every release, newest first. This is generated from the app's own
+What's New dialog, so the two always say the same thing.
 
-This file is generated from the changelog built into the application itself, 
-so it always matches what you see under **Help > What's New** in the app.
+## v1.0.9
 
-Versions are listed newest first. Entries prefixed *Beta* pre-date the 1.0.0 
-release and use their own numbering.
+- Fixed: the startup splash jumped up and to the left and shrank a moment before the main window appeared, on any display not set to 100%
 
----
+## v1.0.8
 
-## v1.0.4  *(current)*
+- SEVERAL IMAGES OPEN AT ONCE, each in its own window with a title bar you can drag and a corner you can resize
+- Added TILE and CASCADE to the Editor toolbar, re-fitting each image to its new window
+- Added a WINDOW MENU between Settings and Help, listing every open image - minimised ones included - with the active one ticked
+- Added KEYBOARD WINDOW CYCLING: Ctrl+Tab and Ctrl+Shift+Tab, with Ctrl+F6 and Ctrl+Shift+F6 doing the same
+- Added a 1:1 button to each image window; the toolbar's 1:1 and Fit are now global to match
+- Clicking an image window makes it the one the toolbar, tools, Undo, Save and readout all point at
+- Picking several files in Open... now shows them all, tiled, instead of one in the Editor and the rest as icons
+- Double-clicking a workspace icon now joins the images already on screen instead of replacing them
+- Added a SPLASH SCREEN to the built .exe, showing the logo as soon as the icon is double-clicked
+- Renamed Clear Editor to CLEAR WORKSPACE - it closes every open image, after a warning listing what would be lost
+- The empty Image Editor now offers drag & drop like the Files Viewer, and only when drag & drop is actually working
+- Dropping a workspace icon onto a Mini Viewer now MOVES the image rather than copying it
+- Opening an icon whose image is sitting in a Mini Viewer now clears that Mini Viewer, so the image is in one place
+- Open, Save, Output Folder, Auto-open Result, Tile and Cascade are white on the top toolbar again rather than orange
+- Image window title-bar buttons are bigger and held clear of the resize corner
+- Drag & drop now reports in the console whether it is working, instead of failing silently
+- ONE PICTURE PER IMAGE: every window draws the same full-resolution picture, so switching windows is a redraw rather than a two-second rebuild
+- A mono image is stretched once rather than three times - 2.77s against 5.52s on a 24 megapixel frame
+- Image pictures are built one at a time, in order, and the image you click goes to the front of the queue
+- The rendered-image cache is sized to the workspace instead of being fixed at four
+- The History panel is no longer rebuilt while it is collapsed
+- Selecting an image no longer forces three full repaints of the application
+- Minimising the image you are editing hands over in the same turn of the event loop
+- A parked image's icon is made from that image's own picture rather than read from the file again
+- The screen stretch belongs to the IMAGE: turning STF off, or switching Linked/Unlinked, no longer disturbs the other windows
+- Image windows take the shape of the image rather than of the space they are given
+- Every open image is read by the same loader the editor uses, so float data is normalised the same way
+- A window you are not editing is drawn with the same stretch curve as one you are
+- Fixed: dragging an image window was slow, left a trail of half-drawn edges, and smeared blue streaks behind it
+- Fixed: clicking between image windows blanked the one you had just left, and flickered
+- Fixed: minimising one window disturbed every other window, or blanked the Editor
+- Fixed: closing or minimising the last image left an empty window standing where it had been
+- Fixed: SWAP left the window still describing the image that had just left it
+- Fixed: the wheel zoomed the wrong image, and hovering a window reported another image's pixels
+- Fixed: a window could open larger than the Editor, or slide into its own corner after a Tile or Cascade
+- Fixed: opening an image while others were in windows often showed its name but no picture
+- Fixed: opening several images at once painted several arrangements before settling on the right one
+- Fixed: the empty Image Editor came up completely blank on a fresh start
+- Fixed: the empty-workspace logo appeared in the top-left corner for a moment before centring
+- Fixed: dropping an icon where two Mini Viewers overlap loaded it into the one underneath
+- Fixed: the Camera RAW Editor's live preview failed on every mono image
+- Fixed: an XISF window did not take its image's shape, leaving black bands beside the picture
+- Fixed: an image window shaped itself from a downscaled copy, and a saved file left the window showing the old version
+- Fixed: the picture in every window jumped three pixels for a single frame on each switch
+- Fixed: dragging a file onto the editor stopped working over the workspace icons
+- GROUNDWORK for the multi-window workspace: each image has its own canvas and its own frame
 
-- The filename and Rename moved to the end of the Image Editor toolbar. Packed first, the label's width changed with the name and every button after it slid along - so the buttons were never in the same place twice
-- The scratch folder is now AstroSuite_Temp and the Siril working folder AstroSuite_Pro_Siril. Clear Temp Files also sweeps the old AstroShed_Temp folder, which nothing else would ever have cleared - only through that explicit, confirmed action, never automatically, since temp can hold a result you have not saved yet
-- Renamed to AstroSuite Pro. Settings, profiles and the processing history saved under the old name are moved across the first time it runs, so nothing is lost - and the icon and watermark still resolve if they are only present under their previous filenames
-- Help windows open centred on the app rather than parked beside the Process Tools sidebar. That placement exists so a tool dialog does not cover the image being worked on, which is right for a tool and wrong for Help - these have nothing to do with the image
-- The About window was 1140px tall and holding four unrelated things. What's New and How Editing Works are now their own Help entries, leaving About with what the word actually means - version, what it is built on, licensing - at a sensible size
-- What's New shows the WHOLE history in its own window. It used to be a six-line box inside About, which is no way to read 206 entries across 17 versions, and it marks the version you are running
-- The About button has gone from the left panel - the Help menu is where anyone would look, and that panel now collapses, so it was the wrong home for something that should always be reachable
-- The Information Panel and Console can be hidden together - the panel icon on the toolbar, Edit > Hide / Show Info + Console, or F8 - giving their height to the image. They share one row, so both go at once. The state is remembered between sessions
-- Hover bubbles stay beside the button they belong to. A wide bubble on a tools-sidebar button had to hang far out to the left, over the image and nowhere near what it described - it now right-aligns to the button and wraps narrower
-- Toolbar icons show their NAME in the hover bubble - Crop, Image Solver, STF Stretch - rather than the first line of a description. An icon needs naming, not explaining; the explanation stays in the Information Panel
-- Check All, Uncheck All, Remove Selected and Clear All had no tooltips at all - being labelled, it was never obvious. They have them now
-- Tooltips now also appear as a small bubble under the pointer after a short pause, the way most desktop applications do it - so a button can be learned without looking across to the Information Panel. The bubble shows the first sentence only; the full text stays in the panel, since several run to a paragraph and a paragraph in a bubble is unreadable. Settings > Hover Tooltips turns them off
-- Added a before/after compare button to the Image Editor toolbar - click to see the image as it was before any editing, click again to return, with the button outlined while the original is showing. Nothing is changed either way, unlike Undo which has to be reversed afterwards
-- View FITS Header added to the icon toolbar as well as the tools sidebar - it is a diagnostic rather than a processing step, and gets reached for often
-- Subframe Selector, Blink Tool and Load Stacking Profile added to the Tools menu. They existed only on the left panel, so collapsing it left them unreachable
-- Added a menu bar and icon toolbar across the top - File, Edit, Tools, Settings and Help, each dropdown showing its keyboard shortcut in a right-hand column, plus a row of icon buttons for the things done most often. Both sidebars are unchanged. The Tools menu is generated from the same list that builds the tools sidebar, so the two cannot drift apart, and every shortcut the menus advertise is actually bound
-- Toolbar icons are now drawn with Pillow at run time instead of using text arrows. The unicode glyphs were hairline strokes meant for equations, so they read as faint scratches at button size and only got worse when enlarged. These are proper shapes, drawn at four times the size and scaled down so the edges stay smooth, with no icon files to ship
-- The Image Editor toolbar is now a single row of icons instead of two rows of text buttons. Open, Undo, Redo and Save came off it entirely - they are on the global toolbar now. The Debayer and STF switches and the Linked/Unlinked choice stay as switches and radio buttons, because each carries a state you need to see at a glance
-- The Files Viewer / Image Editor switch moved onto the end of the icon toolbar, with an icon each - a framed picture and framed lines of text - and the tab strip is hidden, removing a whole horizontal band of the window that held nothing but two words
-- The Image Editor and Files Viewer toolbars moved up into the empty band level with the Add Frames and Process Tools headings, one shown at a time depending on the view. That removes a row from inside both tabs and fills a gap that was doing nothing
-- The left panel can now be collapsed - the Hide / Show button on the toolbar, Edit > Hide / Show Left Panel, or F9 - handing its full width to the image. The state is remembered between sessions. Everything on the panel is reachable from the menus, so nothing is lost while it is hidden
-- The left panel is shown and hidden from the tabs on the window's left edge, replacing the toolbar button. F9 and Edit > Hide / Show Left Panel still work
-- The left edge now carries two tabs, STACKING and HISTORY, which choose what the left column shows. Clicking the tab already showing collapses the column, so hiding it still works the same way
-- Added a History view: every tool applied to the image in the Editor, in order, with a click on any step taking you back to how the image looked at that point. The intermediate files are still on disk, so it is a real undo rather than a list - and the steps you go back past move to redo, so nothing is lost
-- The History view names the image being worked on, and keeps a permanent record: every tool applied is written to a log beside the settings file, grouped by image and by day. Earlier sessions on the same image appear beneath the current ones, so months later you can see what you did to it and when
-- Flip and rotate moved from the Image Editor toolbar up to the main icon toolbar, since they apply to the loaded image whichever tab is in front
-- The four display controls - STF stretch, Linked, Unlinked and Debayer - moved from above the Editor onto the icon toolbar as toggles. STF shows as lettering, Linked and Unlinked as joined and broken chain links, Debayer as a half-colour half-mono square, and whichever are active carry a green outline. Linked and Unlinked stay a pair, so exactly one is ever lit
-- Auto-Open Result in Editor moved from a switch on the frame list row to a toggle on the icon toolbar, alongside the other display toggles, and is also in the Settings menu with a tick showing its state
-- Crop Tool added to the icon toolbar - it is reached for constantly, so it no longer has to be found in the tools sidebar
-- Image Solver added to the icon toolbar, next to Advanced Settings and Open Output Folder
-- Added zoom in and zoom out buttons to the Image Editor toolbar. Fit and 1:1 jump to fixed levels, so without a mouse wheel there was no way to zoom at all. They step by the same amount as one notch of the wheel
-- Start Stacking added to the frame list row, where the rest of the frame actions are - choose your frames, then start - with a wide gap separating it from Clear All so the two cannot be confused
-- File menu now offers all four frame types - Lights, Darks, Flats and Bias - plus Smart Import Files and Smart Import Folder, rather than only Lights
-- File menu now has Save Image alongside Save Image As. Save Image writes straight back over the file being edited, after confirming - unlike Save As it replaces what is on disk and Undo cannot bring that back
-- The frame list buttons - Check All, Uncheck All, Remove Selected, Clear All and Refresh Metrics - are now smaller outlined buttons with drawn icons in the app's accent blue, instead of large solid blue buttons carrying emoji
-- Subframe Selector and Blink Tool now use drawn icons like the rest, instead of emoji that rendered noticeably smaller, and the gap between icon and text is even across every sidebar button
-- The Open Image icon now shows a picture inside the folder - as a plain folder it was indistinguishable from Open Output Folder sitting a few icons along
-- The sidebar buttons that have a toolbar equivalent - Advanced Settings, Open Output Folder, Analyze Frames and Start Stacking - now use the same drawn icons, so the same action looks the same wherever it appears
-- The Settings menu has a single Advanced Settings entry that opens the window on click and offers the individual tabs on hover, so you can go straight to Calibration or Alignment rather than opening the window and then finding the tab
-- Icon toolbar grouped so the view-related controls sit together at the end - the display toggles and then the Files Viewer / Image Editor switch, after the file, edit and transform actions
-- Menu popups are lifted slightly and given a faint blue cast with a brighter border, so an open menu no longer blends into the sidebar behind it
-- Redrew the display toggles: the chain links now run diagonally so they read as a chain, the broken one has red bursts at the snap, and Debayer shows the actual Bayer pattern - red, green, green, blue - rather than a generic colour swatch
-- Menu bar buttons are now sized to their own text instead of all being the same width - with one fixed width, File sat in a lot of empty space while Settings nearly filled its button, so the gaps between the words looked uneven even though the buttons were evenly spaced
-- Added the missing tooltips on the Fit and 1:1 zoom buttons, evened up the spacing between the toolbar icons, and took Start Stacking off the icon toolbar - the sidebar has a full-width button for it, and a one-click start among small icons is too easy to hit by accident
-- Collapsing the left panel is a single layout pass now. It used to remove the container and then change the column width as two separate steps, and Tk lays out after each - so the intermediate state was painted, which is the block that flashed on the right and made the buttons ripple leftwards in stages
-- Fixed the Tools submenu staying on screen after its parent menu closed - and, because it had no titlebar and sat above everything, not even disappearing when the window was minimised
-- Fixed menu clicks falling through to whatever sat underneath - choosing a menu item was also pressing the toolbar button beneath it. The menu acted on the mouse press and destroyed itself while the button was still down, so the release landed on the control below, and CustomTkinter buttons fire on release
-- The Image Solver and SPCC dialogs open instantly again - checking whether the image had coordinates was going as far as the online name resolver, so the window waited on a network round-trip before it could appear. The dialogs now read the header only, and the lookup happens when you actually solve
-- FIXED: saving a FITS whose header contains lowercase keywords failed. PixInsight's noise evaluation writes cards like medNR-1, and the FITS standard requires uppercase, so astropy refused to write the file back out - which broke Crop and every other tool that saves a FITS, but only on files that had been through PixInsight
-- Restored the xisf version shim that had been lost from the source. Without it a built exe dies at startup with PackageNotFoundError, because xisf reads its own package metadata as it imports and PyInstaller bundles the module without it
-- Plate solving now reads OBJCTRA/OBJCTDEC as well as RA/DEC and CRVAL - those sexagesimal fields are what most capture software actually writes, and they were being ignored, so an image with perfectly good pointing data could look as though it had none
-- The target box takes the object's NAME as well as coordinates - M42, NGC 7000, Rosette Nebula - looked up through the CDS resolver that sits behind SIMBAD. A name is what you actually know about your own image; coordinates are not
-- The same target box is now in the SPCC dialog. SPCC plate solves in the background with no chance to intervene, so an image whose header had no pointing data simply failed with nowhere to say where it was pointing
-- Added a target coordinates box to the Image Solver, used when the header carries no pointing data at all. Siril cannot solve without a rough starting position, and a stacked master that has been through other software has often lost its RA/Dec - which failed with no way to proceed. The dialog says whether the image already has coordinates, so the box is only needed when it does not
+## v1.0.7
+
+- The crop box TILTS - drag the grip outside its top-right corner and Apply Crop hands the tilted rectangle back upright
+- A tilted crop keeps a plate solution pointing at the same sky, verified against astropy
+- A tilted crop is refused on a still-Bayer file, where it would blend the colour filter pixels together
+- The crop box has eight handles, four corners and four sides, and the opposite one stays put while you drag
+- Removed: the green stippled wash inside the crop box - it covered the detail you are framing
+- Set Preview Region has the same eight handles, and its overlay no longer flickers while dragging
+- Added MINIMISE, FIT and CLOSE in the top-right corner of the Editor; Minimise parks the image as a workspace icon
+- Every tool has its own icon, in the sidebar, in the menu and on its own window's title bar and taskbar button
+- Blemish Blaster spots stay editable - click to select, drag to move or resize, Delete removes just that one
+- Manual Background Extraction's exclusion areas are editable, with Backspace to take back the last corner
+- PICK THE MASK LIMITS OFF THE IMAGE: RangeSelection's Lower and Upper can be set by clicking your own sky or nebula
+- Background Neutralization has Pick Background - one click on your sky brackets it
+- LinearFit has Pick Reject Low and Pick Reject High, set by clicking what you want kept
+- Curves can pick from the image - a click marks the value under the cursor, a double-click anchors the curve there
+- Renamed Narrowband Addition to ADD NARROWBAND TO RGB, with a Plain add mode alongside the relinearised one
+- Add Narrowband to RGB warns when the two images would lift the background rather than add emission
+- Continuum Subtraction saves a second, ready-to-combine copy with its black point already placed
+- Continuum Subtraction's continuum scale can be typed over the fitted one, with Use fitted to put it back
+- LinearFit's reference is chosen with one dropdown - workspace images, then Mini Viewers, then Browse
+- The hover readout shows K for mono images, and Preview Region gives its median and mean
+- The magnifier has a crosshair and a sample box, showing the single pixel and the box median together
+- RangeSelection's Smoothness is now called BLUR, which is what it is, and reaches 80 instead of 10
+- Adjusting a RangeSelection mask while it is Active is no longer slow - 2.7 seconds a slider move, gone
+- Large mask blurs are built at reduced resolution, which the result cannot tell apart
+- Fixed: Undo after LinearFit showed a blown-white image until the stretch was toggled
+- Fixed: Ctrl+Z while typing in a box undid the image, and reached past a tool window to the image behind
+- Fixed: closing the last workspace icon left the canvas still telling you to double-click one
+- Fixed: the View FITS Header window kept the plain application icon and never got the dark title bar
+- Fixed: a crash when closing a tool dialog - the viewer was asked to re-render with no file given
+- Fixed: cancelling Save As New discarded the result instead of leaving it in the editor
+- Fixed: renaming an image did not follow it onto a workspace icon, which came back with a generic name
+
+## v1.0.6
+
+- A PIXINSIGHT-STYLE IMAGE WORKSPACE - every open image is a document with its own Undo history, stretch, zoom and pan, and extra images minimise to draggable icons
+- Live previews now genuinely match Apply - the proxy they previewed from was brightening the background
+- Tool source pickers list the open workspace images by name instead of Main Viewer and Mini Viewer entries
+- Added a built-in engine SELF-TEST: run with --selftest and 22 checks verify every hard guarantee, no window
+- Iterative tools no longer grow the image title on every pass - six runs of GHS adds _GHS once, not six times
+- Fixed: the white flash on Apply with the screen stretch engaged
+- Fixed: GHS could leave dark dots in star cores at the smaller preview sizes
+- Fixed: the GHS symmetry-point dropper could throw the image half off screen if your hand moved during the pick
+- Fixed: double-clicking a workspace icon could freeze the whole app on Windows
+- Fixed: images could open off-centre, inheriting the previous image's pan
+- Fixed: wheel zoom was dead in Mini Viewers for mono images arriving via icon drops, and the empty editor's watermark could be dragged around
+
+## v1.0.5
+
+- Added MANUAL BACKGROUND EXTRACTION, the DBE-style tool the app was missing - place samples on sky, a surface is fitted through them and removed
+- Manual Background Extraction colours each sample by whether it is really measuring sky, as Astro Pixel Processor does
+- Manual Background Extraction is much faster - the fitted surface took minutes on a 26 megapixel frame
+- Manual Background Extraction samples now sit closer to the frame edge, so the surface extrapolates less
+- Its model is shown contrast-stretched, matching Background Extraction, and no longer with a colour cast
+- Added a PREVIEW QUALITY control to the Editor toolbar - Fast, Normal, High or Maximum
+- Added a Mask menu beside Preview Quality, replacing three icon buttons that could not be made legible at 20px
+- The Crop Tool tints the area being KEPT a translucent green, and has Size boxes for the selection
+- The crop box no longer flickers while you drag its handles
+- The Image Solver asks for focal length and pixel size when the header has none, and remembers them per rig
+- SPCC has the same focal length box as the Image Solver, since it plate solves first and fails for the same reason
+- XISF images now have their header read everywhere FITS ones do
+- The background tools now say so when the image is 16-bit integer data, where a fitted surface has little to work with
+- Combine RGB has separate Custom (RGB) and Custom (LRGB) modes, and says what it is doing during the pause after a run
+- Mini Viewers load far more quickly - they were stretching at full resolution rather than from a proxy
+- Mini Viewers no longer sit unpainted while they open, or appear on the taskbar before they appear in the app
+- Mini Viewers scroll and zoom much more quickly, and no longer go blocky
+- Tool previews no longer go blocky when zoomed in
+- Curves is much faster, especially at the higher preview settings
+- GHS now computes in float32, tested against the old code across 420 parameter combinations
+- SCNR, Background Neutralization and Star Stretch moved to float32, bit-identical where it matters
+- The mask overlay is blended in integer arithmetic, so a scroll wheel with a mask active is no longer sluggish
+- Every path that changes what the Editor shows now goes through one function
+- FIXED, and this one could destroy a file: after a successful plate solve the app copied Siril's working copy back over the original
+- Fixed: plate solving and SPCC failed on any non-FITS image, and ignored an XISF image's pixel size and coordinates
+- Fixed: Background Extraction, SPCC and Image Solver all failed outright on XISF and TIFF images
+- Fixed: stepping back through Undo, or closing a tool, brought the colour cast back on an Unlinked stretch
+- Fixed: toggling the screen stretch while inspecting the Manual Background Extraction model replaced it with the working image
+- Fixed: Show Background in GraXpert and Background Extraction displayed the model as a solid green frame
+- FIXED in Manual Background Extraction: the model came out pure black with the stretch off and pure white with it on
+- FIXED in Manual Background Extraction: it wrote its result as .fits regardless of the source format
+- FIXED in Manual Background Extraction: every failure was reported as nothing at all
+- FIXED in Manual Background Extraction: applying twice wrote to the same file while the viewer still had it open
+- FIXED in Manual Background Extraction: samples survived closing the tool and sat on the previous state of the image
+- Fixed: a Mini Viewer could produce hundreds of identical minimised icons
+- Fixed: closing a tool without applying could leave the unapplied preview in the viewer as though committed
+- Fixed: the Shape Mask overlay vanished when you zoomed or panned
+
+## v1.0.4
+
+- Renamed to ASTROSUITE PRO - settings, profiles and history saved under the old name are moved across on first run
+- Added a MENU BAR and ICON TOOLBAR across the top - File, Edit, Tools, Settings and Help, each showing its shortcut
+- The Image Editor toolbar is now a single row of drawn icons instead of two rows of text buttons
+- The left panel can be collapsed from the tabs on the window's edge, from Edit, or with F9
+- The left edge carries STACKING and HISTORY tabs choosing what the left column shows
+- Added a HISTORY VIEW: every tool applied to the image, in order, with a click taking you back to that step
+- The History view keeps a permanent record, written to a log beside the settings
+- The Information Panel and Console can be hidden together - toolbar icon, Edit menu, or F8
+- Every Process Tools category is now collapsible, not just four of them
+- Added SHAPE MASK - draw regions on the image and what you run next affects only those areas
+- Added Show/Hide, Invert and Delete Mask buttons to the Editor toolbar
+- A RangeSelection mask survives closing its window, and reopening the tool shows the settings that made it
+- Tool previews now show the MASKED result rather than the whole image changing
+- A mask is cleared whenever a genuinely different image is loaded, and the filename reads [MASK ACTIVE] while one is live
+- The mask overlay is drawn at display size rather than onto all 26 megapixels
+- Added a MAGNIFIER to the toolbar - a panel showing the spot under the pointer closer, without zooming the view
+- Added a BEFORE/AFTER COMPARE button, instant after the first use
+- Added a red CLOSE IMAGE button to the Editor toolbar
+- Added zoom in and zoom out buttons to the Editor toolbar
+- Added File > RECENT IMAGES, the last ten you opened, surviving a restart
+- The frame list survives closing the app, with Restore Last Session to bring it back
+- Added Save Image alongside Save Image As, writing straight back over the file after confirming
+- File menu now offers all four frame types plus Smart Import Files and Folder
+- Added Clear Siril Work Files, in Settings and on the Maintenance tab
+- Added a target coordinates box to the Image Solver, and the same box to SPCC
+- The target box takes the object's NAME as well as coordinates - M42, NGC 7000, Rosette Nebula
+- Plate solving now reads OBJCTRA/OBJCTDEC as well as RA/DEC and CRVAL
+- Added a Licence Panel for the RC-Astro tools, using their account system - one code activates every product
+- Added Check Version and Update CLI buttons for the RC-Astro CLI, and a Compute Device choice
+- Added a device BENCHMARK button - it times BlurXTerminator on every compute device and saves the fastest
+- The Xterminator tabs are built from the CLI's own layout description, and gained an ML Version dropdown
+- BlurXTerminator gained its Lunar / Planetary toggle, new with ML5
+- Help > Check Engine Versions reports all three engines against their latest releases
+- What's New now shows the whole history in its own window, and Help windows open centred on the app
+- Narrowband Normalization, Astro Color Mixer and Color Saturation have their own preview panels
+- Multiscale Local Contrast now accepts mono images
+- The Color Masks Strength slider is no longer linear, matching the original PixelMath
+- Blemish Blaster no longer asks whether to save after every Apply
+- Undo and Redo are now instant across the last few steps, and name the tool in their tooltips again
+- Opening an image that has been shown before reuses what was rendered rather than re-reading the file
+- Mini Viewers reuse their rendered images too, so swapping is quick in both directions
+- Mini Viewers gained a Linked / Unlinked choice and the same icon toggles the Editor uses
+- Mini Viewer toolbars use the app's drawn icons throughout instead of emoji and text
+- Window title bars are forced to a solid dark colour on Windows 11
+- Flips and rotations appear immediately and are much quicker, with the readout and crop overlay following
+- Applying a tool no longer throws away your zoom
+- The screen stretch works in float32, roughly 8x faster, and no longer repairs data that needs no repair
+- Turning the screen stretch OFF no longer costs more than leaving it on
+- The metrics columns fill DURING a run instead of all at once at the end
+- The readout bar and Console header show CPU, RAM, GPU and the engine's thread count
+- Toolbar icons are drawn with Pillow at run time instead of unicode arrows, and grouped by what they do
+- Tooltips appear as a bubble under the pointer after a short pause, name the tool, and no longer hang off the sidebar
+- Save prompts, message boxes and file dialogs always appear in front of whatever tool window is open
+- A Siril crash now says so, rather than reading as an ordinary failure
+- The scratch folder is now PhotonWorks_Temp, and choosing it directly no longer nests it inside itself
+- Fixed: the red mask overlay vanished the moment any tool was opened
+- Fixed: a mask was applied on Apply and then immediately undone on screen
+- Fixed: with a mask active, opening any tool brightened stars across the whole frame
+- Fixed: opening a previously-viewed image left the previous image's name in the toolbar
+- Fixed: closing a tool after applying it snapped the view back to 1:1
+- Fixed: Blemish Blaster repairs undid themselves
+- Fixed: a Mini Viewer stayed blank when an image was loaded into it a second time, or after a swap
+- Fixed: after a swap a Mini Viewer could show the image far too large or small while still reporting Fit
+- Fixed: after a flip or rotate the hover Readout could report that values were not available
+- Fixed: the processing history file appeared in the Stacking Profiles dropdown as a profile
+- Fixed: saving a FITS whose header contains lowercase keywords failed
+- Fixed: menu clicks fell through to whatever sat underneath, and the Tools submenu stayed on screen
+- Fixed: the Image Solver and SPCC dialogs were slow to open - the coordinate check reached the online name resolver
+- Restored the xisf version shim, without which a built .exe dies at startup
 
 ## v1.0.3
 
-- The unsaved results warning on exit no longer counts tool scratch files as results. Running SPCC and undoing it left its working copy behind, so the app warned about unsaved work when the stack had already been autosaved and nothing was at risk
-- The star catalogue can also be pointed at a copy you already have, rather than downloading it again - useful if you move the file, already ran Siril's own installer, or keep one copy on a network drive for several machines
-- Added an optional offline star catalogue download (Advanced Settings > Maintenance). Plate solving normally queries a server in Strasbourg on every solve - a single server with no mirrors, which fails often enough to stop a run. Download Siril's own Gaia DR3 catalogue once, to a drive of your choosing, and plate solving then works entirely on your own machine. Colour calibration still uses its own online service, which is mirrored eight ways and far more reliable
-- FIXED: three of the five stacking methods wrote a command Siril could not run. Median Sigma Clipping, Linear Fit and GESD are rejection TYPES in Siril, not stacking methods, so choosing them would have failed the whole stack. All now work, and Percentile, MAD and no-rejection have been added alongside them
-- FIXED: the registration interpolation choices sent the wrong algorithm - Bisquared sent cubic and Bicubic sent lanczos4. They now use Siril's own names, and an existing setting is migrated to whichever algorithm it was really using, so results do not change
-- FIXED: the Equalize CFA switch sent Siril's -cfa flag, which is for cosmetic correction, instead of -equalize_cfa which is what equalises the flat's colour channels - so the colour-cast correction the switch promised was never actually applied
-- FIXED: the drizzle switches added a -drizzle flag that does not exist on Siril 1.4's stack command. Replaced with the real option, Upscale x2 before stacking. The 3x switch has gone - Siril has no 3x
-- Star detection now resets to Siril's defaults at the start of every run. These settings persist inside Siril between sessions, so a value left over from a previous run - or from your own use of the Siril GUI - could previously affect a stack without any indication
-- Drizzle on OSC data now works properly as Bayer drizzle - calibration leaves those frames undebayered so Siril can reconstruct colour from the CFA pattern, which its documentation requires and which is where drizzle helps OSC data most. Previously drizzling colour frames handed Siril already-debayered data
-- Cosmetic correction now passes -cfa for Bayer data so it examines the correct neighbouring pixels, and cold/hot sigma thresholds are exposed and default to 3/3. Siril's own default detects HOT pixels only, so a switch called Clean Hot & Cold Pixels was previously cleaning half of what its name promised
-- The debayer algorithm override now restores your Siril setting on every failure path, including a failed engine launch and an app crash mid-stack - previously those routes could leave your own Siril preference changed with nothing to put it back
-- Fixed a thread-safety bug in the Blink Tool: changing the stretch mode built its display images on a background thread, which Tk does not allow. The image processing still happens in the background, but the display objects are now created on the main thread as they should be
-- Stacking options that only apply to certain methods are no longer sent with the ones that reject them - normalisation and weighting on Sum, maximize and upscale on Median
-- Drizzle now also applies with Mosaic and Intersection framing, not just standard
-- Fixed two scrollbars appearing on the Light and Calibration tabs, where the contents could never size themselves properly
-- Every option Siril's stack command accepts is now available: all five methods including Minimum and Maximum, all eight rejection types, and all four weighting modes - Background Noise and Frames Stacked were previously unreachable
-- Added the rest of Siril's stacking options: equalize colour backgrounds, fast normalisation, force 32-bit output, rejection maps, edge feathering and overlap normalisation - each one only offered to the stacking methods that actually accept it
-- Added frame filtering - let Siril leave the worst frames out of the stack by FWHM, weighted FWHM, roundness, background level, star count or quality, as a percentage, a k-sigma multiple or an absolute threshold
-- Registration now offers everything Siril's register command accepts: all six interpolation methods, clamping control, the transformation model (homography, affine, similarity, shift), minimum star pairs, maximum stars, and star-list output
-- Star detection now exposes search radius, minimum roundness, PSF fit iterations, Gaussian or Moffat model with minimum beta, and relaxed star checks - only the noise threshold was adjustable before
+- Added HISTOGRAM TRANSFORMATION - the PixInsight-style stretch, with black, midtone and white handles under a live RGB histogram
+- Every option Siril's stack command accepts is now available - all five methods, all eight rejection types and every flag
+- Added FRAME FILTERING - let Siril leave the worst frames out by FWHM, roundness, background, star count or quality
+- Registration now offers everything Siril's register command accepts, including all six interpolation methods
+- Star detection now exposes search radius, roundness, PSF fit iterations, Gaussian or Moffat, and relaxed star checks
+- Star detection resets to Siril's defaults at the start of every run, so nothing carries over between sessions
 - Drizzle restored, on the registration step where Siril actually implements it, with pixel fraction and kernel choice
-- Added a registration output scale (0.1 to 3), sitting with the drizzle options because it is what sets the drizzle factor - 2 for 2x, 3 for 3x. Siril's drizzle flag carries no magnification of its own. It also works without drizzle as a plain rescale, including downscaling for quick test stacks
-- Added Centre of Gravity framing, Siril's fourth framing method - keeps more field than Intersection while still giving a clean rectangle
-- Added the remaining calibration options: Fuji X-Trans autofocus correction and the choice to calibrate excluded frames
-- Every stacking run now ends with a timing summary - each step with its duration, frame count and share of the total, so a run that feels slow can be compared against a previous one instead of guessed at. Also shown when a run fails, so you can see which step it reached
-- Added Histogram Transformation - the PixInsight-style stretch, with black, midtone and white handles under a live RGB histogram, the transfer curve drawn against the identity diagonal, and an Auto button that suggests a starting point from the image itself
-- The frame list's column headers now explain themselves - hover any of them for a description of what FWHM, Roundness, RMSE, BG Noise and the rest actually measure, and which direction is better
-- Removed Upscale x2 before stacking. The Output scale control on the Alignment tab does the same job at registration and does it better - any factor from 0.1 to 3 rather than a fixed 2x, and it is the one drizzle uses. Having both meant they could be enabled together for an unintended 4x
-- Reorganised the sidebar's Core Parameters around what actually changes between targets: the Sigma Low and Sigma High rejection sliders moved up from Advanced Settings to sit with the stacking algorithm they belong to, and Framing joined them. Image Weighting stays. Debayer Algorithm moved back to Advanced Settings > RAW/FITS, alongside the note explaining it, since it is a set-once preference rather than a per-target choice
-- Moved Pre-Stacking Correction into the Calibration tab, alongside the Master Dark it uses, and removed the now-empty Cosmetic tab
-- Renamed the Image Viewer tab to Image Editor, and the Mini Viewer's swap button to Swap with Editor - it is the window the tools actually work on, and the name now says so
-- Added a Licensing section to About / Credits - AstroSuite Pro is GPL v3 with its source in every release, and Siril is bundled unmodified with its own licence and AUTHORS file alongside it
-- Tool previews can now be zoomed and panned - mouse wheel to zoom, drag to pan, and a Fit button (or a double-click) to see the whole image again. Added to Colour Masks, Dust Lane Enhancer, Dark Structure Enhance, Multiscale Local Contrast and RangeSelection Mask
-- Split Channels: the channel boxes no longer say Ha/OIII in full RGB mode - those labels now appear only in duo-band mode, where they are actually true
-- Split Channels: synthetic Luminance can now be built from equal weights (default, best signal-to-noise), Rec.709, or CIE L* - it was fixed at Rec.709
-- Update notices are now a small box under About / Credits in the sidebar, instead of a dialog opening over the app a few seconds after launch - click it to see what has changed and install. Checking for updates manually still answers straight away with the full dialog
-- Added a General / Updates tab to Advanced Settings, holding the app's own behaviour - window, exit and update options
-- Added Remember window size and position - turn it off and the app always opens maximized, as before
+- Drizzle on OSC data now works properly as Bayer drizzle, and applies with Mosaic and Intersection framing too
+- Added a registration output scale (0.1 to 3), which is what sets the drizzle factor
+- Added Centre of Gravity framing, Siril's fourth framing method
+- Added Fuji X-Trans autofocus correction and the choice to calibrate excluded frames
+- Cosmetic correction passes -cfa for Bayer data, with cold and hot sigma thresholds exposed
+- Every stacking run ends with a timing summary - each step with its duration, frame count and share of the total
+- Added an optional OFFLINE STAR CATALOGUE download, or point the app at a copy you already have
+- Added a General / Updates tab to Advanced Settings, holding the app's own behaviour
+- Added Remember window size and position - turn it off and the app always opens maximized
 - Added a warning on exit when a session has results you never saved, with a Don't warn me again option
-- Added Reset All Settings, which puts everything back to defaults without touching your profiles or images
-- Moved the update controls out of the About dialog into Advanced Settings > General / Updates - the check button and the startup switch now sit together
-- Advanced Settings tabs now scroll, so the window no longer has to be as tall as its longest tab
-- Temp files are now kept in one folder per session, and everything older than your last session is cleared automatically at startup - the previous session is always kept, whatever its size, so unsaved results are still there to go back to
+- Added Reset All Settings, which leaves your profiles and images alone
+- Added an interface size adjustment, scaling buttons, text and dialogs relative to your Windows setting
+- Temp files are kept one folder per session and cleared automatically at startup, with 0 to 3 sessions kept
+- You can now move the temp scratch folder and the Siril working folder onto another drive
 - Clear Temp Files now clears every session at once, for when you want the space back immediately
-- You can now choose how many previous sessions to keep (Advanced Settings > Maintenance) - 0 to 3, with 1 the default
-- You can now move the two folders that grow large onto another drive (Advanced Settings > Maintenance): the temp scratch folder, and the stacking working folder that holds calibrated and registered frames. Previously both were fixed to the system drive, which is what filled it up
-- Tool windows are now kept on screen - a tall dialog is moved up, and shortened only if it still would not fit, so nothing opens with its buttons below the bottom of the display
-- The Process Tools sidebar now reopens the same groups you had open when you last closed the app - switch it off in General / Updates if you prefer everything closed at startup
-- Added an interface size adjustment (Advanced Settings > General / Updates) - scales buttons, text and dialogs together, relative to your Windows display scaling
+- Advanced Settings tabs now scroll, so the window need not be as tall as its longest tab
+- Tool windows are kept on screen - a tall dialog is moved up, and shortened only if it still would not fit
+- Tool previews can be zoomed and panned - wheel to zoom, drag to pan, Fit or double-click for the whole image
+- The Process Tools sidebar reopens the same groups you had open when you last closed the app
+- Update notices are now a small box under About / Credits instead of a dialog opening over the app
+- The frame list's column headers explain themselves on hover - FWHM, Roundness, RMSE, BG Noise and the rest
+- Renamed the Image Viewer tab to IMAGE EDITOR, and the Mini Viewer's swap button to Swap with Editor
+- Reorganised Core Parameters around what actually changes between targets
+- Moved Pre-Stacking Correction into the Calibration tab and removed the now-empty Cosmetic tab
+- Split Channels no longer labels the boxes Ha/OIII in full RGB mode, where those names are not true
+- Split Channels: synthetic Luminance can be built from equal weights, Rec.709 or CIE L*
+- Added a Licensing section to About / Credits - GPL v3, with Siril bundled unmodified
+- REMOVED Upscale x2 before stacking - the Output scale control does the same job better at registration
+- Fixed: three of the five stacking methods wrote a command Siril could not run
+- Fixed: the registration interpolation choices sent the wrong algorithm
+- Fixed: the Equalize CFA switch sent the cosmetic correction flag instead
+- Fixed: the drizzle switches used a flag that does not exist on Siril 1.4's stack command
+- Fixed: stacking options were sent to methods that reject them
+- Fixed: the debayer override now restores your Siril setting on every failure path, including a crash mid-run
+- Fixed: a thread-safety bug in the Blink Tool when changing the stretch mode
+- Fixed: two scrollbars appeared on the Light and Calibration tabs
+- Fixed: the unsaved results warning on exit counted tool scratch files as results
 
 ## v1.0.2
 
@@ -220,33 +364,32 @@ release and use their own numbering.
 
 ## Beta 12
 
-- Added a Mini Viewer (🔍 Mini Viewer... button) - a second, independent viewer window for looking at another image side by side, e.g. inspecting separate R/G/B masters while combining them. View-only (zoom, pan, STF Stretch) - no editing tools, doesn't touch the main viewer, and you can open as many as you like
-- Color Masks now offers 12 colours instead of 6 (added Orange, Chartreuse, Spring Green, Azure, Violet, Rose) - the original 6 are Bill Blanshan's own PixelMath, the 6 in-between colours use the same verified formula centred on a different hue
-- Added Color Masks - Bill Blanshan's hue-based colour masking (Red/Yellow/Green/Cyan/Blue/Magenta), ported from his actual PixelMath source, with adjustable Strength and Blur plus an Invert Mask toggle (on by default). Applies a saturation adjustment blended by the mask, so it only affects the chosen colour - protects everything else, matching how these are normally used in PixInsight
+- Added a MINI VIEWER - a second, independent viewer window for looking at another image side by side
+- Added COLOR MASKS - Bill Blanshan's hue-based colour masking, ported from his own PixelMath source
+- Color Masks now offers 12 colours instead of 6, with the original 6 being Bill Blanshan's own
 
 ## Beta 11
 
-- GHS, Curves, Star Reduction, and Combine RGB windows now live-resize to fit whatever's actually visible - switching to a mode with fewer controls shrinks the window, switching to one with more grows it, instead of a fixed size with wasted space
+- GHS, Curves, Star Reduction and Combine RGB windows live-resize to fit whatever controls are visible
 
 ## Beta 10
 
-- Added Combine RGB - combines separate mono master images (e.g. from a mono camera, or individual narrowband filters) into one colour image, with an optional Luminance layer for LRGB/LSHO-style results. Custom mode assigns any three images to Red/Green/Blue directly; HOO/SHO/HSO/HOS presets map narrowband filters automatically using this app's existing established channel convention (matching Narrowband Normalization's own mapping)
+- Added COMBINE RGB - combines separate mono masters into one colour image, with an optional Luminance
 
 ## Beta 9
 
-- GHS: added the multi-function graphical display from PixInsight's own GHS module - a live histogram + transformation curve, hover to read Transform(x) anywhere on it, click to set a readout value and send it to Symmetry Point or Black Point
-- GHS: Stretch Amount is now parametrized as PixInsight's own 'Stretch factor (ln(D+1))', giving much finer control at the low end where most stretches actually happen
-- GHS: added Colour Blend (blends between a full Colour-mode transform and a plain per-channel one, per the published spec)
-- GHS: added Low/High Clip Proportion (LCP/HCP) for the Linear type - live readout of what % of pixels would clip at the current Black/White Point, and the reverse: set a target clip % and have it calculate the corresponding point
+- GHS: added PixInsight's own graphical display - a live histogram and transformation curve with hover readout
+- GHS: Stretch Amount is now parametrized as PixInsight's Stretch factor, giving finer control at the low end
+- GHS: added Low/High Clip Proportion for the Linear type, with a live readout of what would clip
 
 ## Beta 8
 
-- Rebuilt Star Reduction from scratch - the previous version's own DIY approach was genuinely broken (confirmed by testing: little visible effect at normal settings, black artifacts in star cores at strong settings). Now a faithful, verified port of Bill Blanshan's actual published Star Reduction PixelMath methods (Transfer/Halo/Star), which recombine an original image with a separately-generated starless image (e.g. from StarXTerminator) rather than trying to detect and shrink stars directly
-- Fixed Star Reduction auto-filling the wrong image into 'Original Image' right after running StarXTerminator (it grabbed whatever the viewer was currently showing, which by then is the starless result, not the original) - now remembers the actual original+starless pairing from the moment StarX runs, and only offers it back when it's confirmed still relevant
+- Rebuilt STAR REDUCTION from scratch - the previous version's own approach was genuinely broken
+- Fixed: Star Reduction auto-filled the wrong image into Original Image after running StarXTerminator
 
 ## Beta 7
 
-- Added Screen Stars - recombines a starless image with a separately-processed stars-only image, using Bill Blanshan & Mike Cranfield's published ScreenStars technique (verified round-trip against the unscreen math StarXTerminator/StarNet use)
+- Added SCREEN STARS - recombines a starless image with a processed stars-only one, per Blanshan and Cranfield
 
 ## Beta 6
 
@@ -254,9 +397,8 @@ release and use their own numbering.
 
 ## Beta 5
 
-- Added a native GHS tool built from scratch from the published GHS specification (David Payne & Mike Cranfield) - Generalized Hyperbolic, Midtone Transfer, Arcsinh, Power Law, and Linear all in one tool, with Colour/Lightness/Saturation modes, live preview, and no Siril round-trip
-- This replaces the Siril-scripted GHS, Modified Arcsinh, Histogram Transformation, and Linear Stretch tools, which are now all covered by the one native tool
-- Added a native Curves tool (Full RGB, Individual RGB, Luminance Only, Saturation) with an interactive draggable curve editor and live preview
+- Added a native GHS tool built from the published specification (David Payne and Mike Cranfield)
+- This replaces the Siril-scripted GHS, Modified Arcsinh, Histogram Transformation and Linear Stretch tools
 
 ## Beta 4
 
@@ -281,8 +423,3 @@ release and use their own numbering.
 
 - Added RC-Astro Xterminator Tools (BlurXTerminator, StarXTerminator, NoiseXTerminator)
 - Added manual Background Extraction
-
----
-
-AstroSuite Pro is free software released under the [GNU General Public License v3](https://www.gnu.org/licenses/gpl-3.0.html). 
-The full source code is included in every release download.
